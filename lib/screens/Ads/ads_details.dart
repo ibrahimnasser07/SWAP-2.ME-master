@@ -55,14 +55,16 @@ class AdsDetails extends StatelessWidget {
                                               ImageDetails.routeName,
                                               arguments: ScreenArgs(
                                                 adsModel: screenArgs.adsModel,
-                                                productModel: screenArgs.productModel,
-                                                categoryMainModel:
-                                                    screenArgs.categoryMainModel,
+                                                productModel:
+                                                    screenArgs.productModel,
+                                                categoryMainModel: screenArgs
+                                                    .categoryMainModel,
                                               ),
                                             );
                                           },
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             child: Image.network(
                                               screenArgs.adsModel.image,
                                               width: 105,
@@ -85,7 +87,8 @@ class AdsDetails extends StatelessWidget {
                               ),
                               const SizedBox(height: 190),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -115,7 +118,8 @@ class AdsDetails extends StatelessWidget {
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: ThemeApp.primaryColor,
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                           ),
                                         ),
                                       ],
@@ -138,7 +142,8 @@ class AdsDetails extends StatelessWidget {
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: ThemeApp.primaryColor,
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                           ),
                                         ),
                                       ],
@@ -147,7 +152,8 @@ class AdsDetails extends StatelessWidget {
                                       padding: 6,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
                                         Text(
                                           'الوصف',
@@ -193,8 +199,10 @@ class AdsDetails extends StatelessWidget {
                                   Container(
                                     width: 47,
                                     height: 27,
-                                    margin: const EdgeInsets.symmetric(horizontal: 3),
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 3),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.rectangle,
@@ -222,7 +230,8 @@ class AdsDetails extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12.0, vertical: 5),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           screenArgs.adsModel.name,
@@ -261,16 +270,23 @@ class AdsDetails extends StatelessWidget {
                                   const MyDivider(),
                                   Row(
                                     children: [
-                                      SvgPicture.asset('assets/images/Group 517.svg'),
+                                      SvgPicture.asset(
+                                          'assets/images/Group 517.svg'),
                                       const DSize(height: 0, width: 30),
-                                      Text(
-                                        '${SwapCubit.get(context).userModel!.firstName.toUpperCase()} '
-                                        ' ${SwapCubit.get(context).userModel!.lastName.toUpperCase()}',
-                                        style: GoogleFonts.cairo(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                          color: ThemeApp.secondaryColor,
-                                        ),
+                                      FutureBuilder(
+                                          future: SwapCubit.get(context)
+                                              .getName(
+                                              screenArgs.adsModel.iD),
+                                          builder: (context, snapshot) {
+                                          return Text(
+                                            snapshot.data ?? "",
+                                            style: GoogleFonts.cairo(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: ThemeApp.secondaryColor,
+                                            ),
+                                          );
+                                        }
                                       ),
                                       const DSize(height: 0, width: 23),
                                       const MyDivider(
@@ -278,13 +294,20 @@ class AdsDetails extends StatelessWidget {
                                         height: 30,
                                       ),
                                       const DSize(height: 0, width: 23),
-                                      Text(
-                                        SwapCubit.get(context).userModel!.phone,
-                                        style: GoogleFonts.cairo(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: ThemeApp.secondaryColor,
-                                        ),
+                                      FutureBuilder(
+                                          future: SwapCubit.get(context)
+                                              .getPhone(
+                                              screenArgs.adsModel.iD),
+                                          builder: (context, snapshot) {
+                                          return Text(
+                                            snapshot.data ?? "01111111111",
+                                            style: GoogleFonts.cairo(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13,
+                                              color: ThemeApp.secondaryColor,
+                                            ),
+                                          );
+                                        }
                                       ),
                                     ],
                                   ),
@@ -299,14 +322,21 @@ class AdsDetails extends StatelessWidget {
                                           color: ThemeApp.secondaryColor,
                                         ),
                                         const DSize(height: 0, width: 30),
-                                        Text(
-                                          'القاهره ،مصر',
-                                          style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                            color: ThemeApp.secondaryColor,
-                                          ),
-                                        ),
+                                        FutureBuilder(
+                                            future: SwapCubit.get(context)
+                                                .getAddress(
+                                                    screenArgs.adsModel.iD),
+                                            builder: (context, snapshot) {
+                                              return Text(
+                                                snapshot.data ?? "مصر, القاهرة",
+                                                style: GoogleFonts.cairo(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color:
+                                                      ThemeApp.secondaryColor,
+                                                ),
+                                              );
+                                            }),
                                         const DSize(height: 0, width: 23),
                                         const MyDivider(
                                           width: 1,
@@ -362,7 +392,8 @@ class AdsDetails extends StatelessWidget {
 
                             child: Container(
                               margin: const EdgeInsets.all(8),
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.rectangle,
