@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.504" height="21.605" viewBox="0 0 21.504 21.605">
+    <g id="Huge-icon_smart_house_outline_home_2" data-name="Huge-icon/smart house/outline/home 2"
+        transform="translate(-1.248 -1.145)">
+        <path id="Vector"
+            d="M5.82,20H14.18a4.088,4.088,0,0,0,4.18-3.989V11.133a2.61,2.61,0,0,1,.82-1.888A2.594,2.594,0,0,0,18.847,5.2L12.459.763a4.343,4.343,0,0,0-4.918,0L1.153,5.2A2.594,2.594,0,0,0,.82,9.245a2.61,2.61,0,0,1,.82,1.888v4.878A4.088,4.088,0,0,0,5.82,20Z"
+            transform="translate(2 2)" fill="#004a86" stroke="#fff" stroke-width="1.5" />
+        <path id="Vector-2" data-name="Vector" d="M6,14c3.172,1.345,4.936,1.321,8,0"
+            transform="translate(2 2)" fill="#004a86" stroke="#fff" stroke-width="1.5" />
+    </g>
+</svg>

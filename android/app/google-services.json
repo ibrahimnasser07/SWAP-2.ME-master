@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637455013229",
+    "project_id": "swap-me-f4272",
+    "storage_bucket": "swap-me-f4272.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637455013229:android:6baf5bfa352df9d3d63664",
+        "android_client_info": {
+          "package_name": "com.example.swap_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637455013229-q9jpk3rb536rip6qa0kg36mrsv887k7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXJVfZ9CY_tyQI7HlqwKlzNtRbfMLPtXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637455013229-q9jpk3rb536rip6qa0kg36mrsv887k7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
