@@ -35,7 +35,7 @@ class _AddAdsState extends State<AddAds> {
 
   @override
   void dispose() {
-    cubit.resetAddProductsPageValues();
+    cubit.resetAddAdsPageValues();
     super.dispose();
   }
 
@@ -154,10 +154,11 @@ class _AddAdsState extends State<AddAds> {
                         const DSize(height: 16, width: 0),
                         MyDropdownFormField(
                           hint: 'اختر القسم',
-                          value: cubit.tradeCategory,
+                          value: cubit.tradeProduct,
                           onChanged: (cSelected) {
-                            cubit.tradeCategory = cSelected;
-                            cubit.getSelectedProductsData(cSelected!);
+                            cubit.tradeProduct = cSelected;
+                            cubit.clearTradeCategory();
+                            cubit.getSelectedCategoryData(cSelected!);
                           },
                           validator: (value) {
                             return value == null ? 'برجاء إدخال القسم' : null;
@@ -177,13 +178,13 @@ class _AddAdsState extends State<AddAds> {
                         const DSize(height: 16, width: 0),
                         MyDropdownFormField(
                           hint: 'اختر الفئه',
-                          value: cubit.tradeProduct,
+                          value: cubit.tradeCategory,
                           onChanged: (newValue) =>
-                              cubit.tradeProduct = newValue,
+                              cubit.tradeCategory = newValue,
                           validator: (value) {
                             return value == null ? 'برجاء إدخال الفئه' : null;
                           },
-                          items: cubit.tradeProducts.map((e) {
+                          items: cubit.tradeCategories.map((e) {
                             return DropdownMenuItem(
                               value: e.name,
                               child: Center(
@@ -237,13 +238,14 @@ class _AddAdsState extends State<AddAds> {
                         const DSize(height: 16, width: 0),
                         MyDropdownFormField(
                           onChanged: (wantedCSelected) {
-                            cubit.wantedTradeCategory = wantedCSelected;
-                            cubit.getSelectedProductsData(
+                            cubit.wantedTradeProduct = wantedCSelected;
+                            cubit.clearWantedTradeCategory();
+                            cubit.getSelectedCategoryData(
                               wantedCSelected!,
                               wanted: true,
                             );
                           },
-                          value: cubit.wantedTradeCategory,
+                          value: cubit.wantedTradeProduct,
                           hint: 'اختر القسم',
                           items: cubit.category.map((e) {
                             return DropdownMenuItem(
@@ -260,10 +262,10 @@ class _AddAdsState extends State<AddAds> {
                         const DSize(height: 16, width: 0),
                         MyDropdownFormField(
                           hint: 'اختر الفئه للمقايضه معه',
-                          value: cubit.wantedTradeProduct,
+                          value: cubit.wantedTradeCategory,
                           onChanged: (newValue) =>
-                              cubit.wantedTradeProduct = newValue,
-                          items: cubit.wantedTradeProducts.map((e) {
+                              cubit.wantedTradeCategory = newValue,
+                          items: cubit.wantedTradeCategories.map((e) {
                             return DropdownMenuItem(
                               value: e.name,
                               child: Center(
@@ -286,8 +288,8 @@ class _AddAdsState extends State<AddAds> {
                                   dateTime: now.toString(),
                                   name: productController.text,
                                   desc: descController.text,
-                                  categoryName: cubit.tradeProduct,
-                                  productName: cubit.tradeCategory,
+                                  categoryName: cubit.tradeCategory,
+                                  productName: cubit.tradeProduct,
                                 )
                                     .then((_) {
                                   cubit.removePostImage();

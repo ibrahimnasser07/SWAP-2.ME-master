@@ -131,14 +131,20 @@ class AdItem extends StatelessWidget {
                                     Expanded(
                                       child: defaultButton(
                                         function: () {},
-                                        widget: Text(
-                                          cubit.userModel!.phone,
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            color: ThemeApp.secondaryColor,
-                                          ),
-                                        ),
+                                        widget: FutureBuilder(
+                                            future: SwapCubit.get(context)
+                                                .getPhone(adsModel.iD),
+                                            builder: (context, snapshot) {
+                                              return Text(
+                                                snapshot.data ?? "01111111111",
+                                                style: GoogleFonts.cairo(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:
+                                                      ThemeApp.secondaryColor,
+                                                ),
+                                              );
+                                            }),
                                         color: ThemeApp.primaryColor,
                                       ),
                                     ),

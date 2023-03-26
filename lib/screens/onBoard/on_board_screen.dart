@@ -185,9 +185,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           } else {
                             pageController.nextPage(
                               duration: const Duration(
-                                milliseconds: 780,
+                                milliseconds: 300,
                               ),
-                              curve: Curves.bounceInOut,
+                              curve: Curves.linear,
                             );
                           }
                         },

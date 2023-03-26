@@ -67,8 +67,6 @@ class CategoryItem extends StatelessWidget {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            //TODO: here
-            // SwapCubit.get(context).getProData();
             SwapCubit.get(context).getProductData(categoryMainModel.cId);
             Navigator.pushNamed(
               context,

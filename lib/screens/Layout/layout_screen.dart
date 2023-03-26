@@ -50,8 +50,6 @@ class LayoutScreen extends StatelessWidget {
               side: BorderSide(color: Colors.white, width: 0),
             ),
             onPressed: () {
-              // TODO: here
-              // SwapCubit.get(context).getProData();
               SwapCubit.get(context).getDataPro();
               Navigator.pushNamed(
                 context,

@@ -212,32 +212,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           controller: areaController,
                           hint: 'المنطقة',
                         ),
-                        const DSize(height: 20, width: 0),
-                        defaultButton(
-                          function: () async {
-                            if (formKey.currentState!.validate()) {
-                              userModel.firstName = firstnameController.text;
-                              userModel.lastName = lastnameController.text;
-                              userModel.gender = genderDropdownValue;
-                              userModel.phone = phoneController.text;
-                              userModel.governorate =
-                                  governorateController.text;
-                              userModel.city = cityController.text;
-                              userModel.area = areaController.text;
-                              swapCubit
-                                  .updateUser(userModel)
-                                  .then((_) => Navigator.pop(context));
-                            }
-                          },
-                          widget: Text(
-                            'حفظ',
-                            style: GoogleFonts.cairo(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: ThemeApp.secondaryColor,
+                        const DSize(height: 20, width: double.infinity),
+                        Center(
+                          child: defaultButton(
+                            function: () async {
+                              if (formKey.currentState!.validate()) {
+                                userModel.firstName = firstnameController.text;
+                                userModel.lastName = lastnameController.text;
+                                userModel.gender = genderDropdownValue;
+                                userModel.phone = phoneController.text;
+                                userModel.governorate =
+                                    governorateController.text;
+                                userModel.city = cityController.text;
+                                userModel.area = areaController.text;
+                                swapCubit
+                                    .updateUser(userModel)
+                                    .then((_) => Navigator.pop(context));
+                              }
+                            },
+                            widget: Text(
+                              'حفظ',
+                              style: GoogleFonts.cairo(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: ThemeApp.secondaryColor,
+                              ),
                             ),
+                            color: ThemeApp.primaryColor,
                           ),
-                          color: ThemeApp.primaryColor,
                         ),
                       ],
                     ),

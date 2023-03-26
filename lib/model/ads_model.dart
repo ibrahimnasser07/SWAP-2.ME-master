@@ -3,8 +3,8 @@ class AdsModel {
   String iD;
   String image;
   String desc;
-  dynamic categoryName;
-  dynamic productName;
+  String categoryName;
+  String productName;
   String dateTime;
 
   AdsModel({

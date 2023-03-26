@@ -66,9 +66,9 @@ class UserDataUpdateFailedState extends SwapStates {}
 
 class UserDataUpdateLoading extends SwapStates {}
 
-class SelectedProductsChanged extends SwapStates {}
+class SelectedCategoryChanged extends SwapStates {}
 
-class WantedSelectedProductsChanged extends SwapStates {}
+class WantedSelectedCategoryChanged extends SwapStates {}
 
 class DeletedAdSuccessState extends SwapStates {}
 
@@ -85,6 +85,8 @@ class UserAdsRefreshed extends SwapStates {}
 class UserAdsLoadingState extends SwapStates {}
 
 class UserAdsLoadedState extends SwapStates {}
+
+class ClearedProducts extends SwapStates {}
 
 class SwapItemSelectedState extends SwapStates {
   final String id;

@@ -111,15 +111,18 @@ class SwapCubit extends Cubit<SwapStates> {
   }
 
   /// my fix
-  List<ProductModel> tradeProducts = [];
-  List<ProductModel> wantedTradeProducts = [];
+  List<ProductModel> tradeCategories = [];
+  List<ProductModel> wantedTradeCategories = [];
 
-  String? tradeCategory;
   String? tradeProduct;
-  String? wantedTradeCategory;
+  String? tradeCategory;
   String? wantedTradeProduct;
+  String? wantedTradeCategory;
 
-  getSelectedProductsData(String cName, {bool wanted = false}) {
+  bool editCategoryChanged = false;
+  bool editWantedCategoryChanged = false;
+
+  getSelectedCategoryData(String cName, {bool wanted = false}) {
     int cIndex = category.indexWhere((e) => e.name == cName);
     FirebaseFirestore.instance
         .collection('categoryMain')
@@ -128,32 +131,48 @@ class SwapCubit extends Cubit<SwapStates> {
         .get()
         .then((value) {
       if (wanted) {
-        wantedTradeProducts = [];
+        wantedTradeCategories = [];
         for (var element in value.docs) {
-          wantedTradeProducts.add(
+          wantedTradeCategories.add(
             ProductModel.fromFireStore(element.data()),
           );
         }
-        emit(SelectedProductsChanged());
+        wantedTradeCategory = wantedTradeCategories.first.name;
+        emit(WantedSelectedCategoryChanged());
       } else {
-        tradeProducts = [];
+        tradeCategories = [];
         for (var element in value.docs) {
-          tradeProducts.add(
-            ProductModel.fromFireStore(element.data()),
-          );
+          tradeCategories.add(ProductModel.fromFireStore(element.data()));
         }
-        emit(WantedSelectedProductsChanged());
+        tradeCategory = tradeCategories.first.name;
+        emit(SelectedCategoryChanged());
       }
     });
   }
 
-  void resetAddProductsPageValues() {
-    tradeProducts = [];
-    wantedTradeProducts = [];
+  Future<void> clearTradeCategory() async {
+    editCategoryChanged = true;
+    tradeCategories = [];
     tradeCategory = null;
-    tradeProduct = null;
+    emit(ClearedProducts());
+  }
+
+  void clearWantedTradeCategory() {
     wantedTradeCategory = null;
+    wantedTradeCategories = [];
+    editWantedCategoryChanged = true;
+    emit(ClearedProducts());
+  }
+
+  void resetAddAdsPageValues() {
+    tradeCategories = [];
+    wantedTradeCategories = [];
+    tradeProduct = null;
+    tradeCategory = null;
     wantedTradeProduct = null;
+    wantedTradeCategory = null;
+    editWantedCategoryChanged = false;
+    editCategoryChanged = false;
   }
 
   /// end my fix
@@ -332,7 +351,7 @@ class SwapCubit extends Cubit<SwapStates> {
 
   Future<void> updateAd(AdsModel adsModel) async {
     emit(CreateAdsLoadingState());
-    if(adsImagePicked != null){
+    if (adsImagePicked != null) {
       firebase_storage.FirebaseStorage.instance
           .ref()
           .child('adsImage/${Uri.file(adsImagePicked!.path).pathSegments.last}')
@@ -344,7 +363,7 @@ class SwapCubit extends Cubit<SwapStates> {
               .where("image", isEqualTo: adsModel.image);
           adsModel.image = value;
           docRef.get().then((querySnapshot) async {
-            for(var doc in querySnapshot.docs){
+            for (var doc in querySnapshot.docs) {
               await doc.reference.update(adsModel.toFireStore());
             }
             emit(CreateAdsSuccessState());
@@ -356,14 +375,13 @@ class SwapCubit extends Cubit<SwapStates> {
           .collection("ADS")
           .where("image", isEqualTo: adsModel.image);
       docRef.get().then((querySnapshot) async {
-        for(var doc in querySnapshot.docs){
+        for (var doc in querySnapshot.docs) {
           await doc.reference.update(adsModel.toFireStore());
         }
         await getMyAdsData(adsModel.iD);
         emit(CreateAdsSuccessState());
       });
     }
-
   }
 
   void createAds({
@@ -512,7 +530,7 @@ class SwapCubit extends Cubit<SwapStates> {
         .collection("ADS")
         .where("image", isEqualTo: image);
     docRef.get().then((querySnapshot) async {
-      for(var doc in querySnapshot.docs){
+      for (var doc in querySnapshot.docs) {
         await doc.reference.delete();
         emit(DeletedAdSuccessState());
       }

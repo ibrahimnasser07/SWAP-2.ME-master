@@ -37,7 +37,7 @@ class _EditAdScreenState extends State<EditAdScreen> {
   @override
   void dispose() {
     cubit.removePostImage();
-    cubit.resetAddProductsPageValues();
+    cubit.resetAddAdsPageValues();
     adNameController.dispose();
     descController.dispose();
     super.dispose();
@@ -49,7 +49,7 @@ class _EditAdScreenState extends State<EditAdScreen> {
         ModalRoute.of(context)!.settings.arguments as AdsModel;
     adNameController = TextEditingController(text: screenArgs.name);
     descController = TextEditingController(text: screenArgs.desc);
-    cubit.getSelectedProductsData(screenArgs.productName);
+    cubit.getSelectedCategoryData(screenArgs.productName);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -118,38 +118,38 @@ class _EditAdScreenState extends State<EditAdScreen> {
                     const DSize(height: 16, width: 0),
                     MyDropdownFormField(
                       hint: 'اختر القسم',
-                      value: cubit.tradeCategory ?? screenArgs.productName,
+                      value: cubit.tradeProduct ?? screenArgs.productName,
                       onChanged: (cSelected) {
-                        cubit.tradeCategory = cSelected;
-                        cubit.getSelectedProductsData(cSelected!);
+                        cubit.tradeProduct = cSelected;
+                        cubit.clearTradeCategory();
+                        cubit.getSelectedCategoryData(cSelected!);
                       },
                       validator: (value) {
                         return value == null ? 'برجاء إدخال القسم' : null;
                       },
-                      items: cubit.category
-                          .map((e) {
-                            return DropdownMenuItem(
-                              value: e.name,
-                              child: Center(
-                                child: Text(
-                                  e.name,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            );
-                          })
-                          .toSet()
-                          .toList(),
+                      items: cubit.category.map((e) {
+                        return DropdownMenuItem(
+                          value: e.name,
+                          child: Center(
+                            child: Text(
+                              e.name,
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                     const DSize(height: 16, width: 0),
                     MyDropdownFormField(
                       hint: 'اختر الفئه',
-                      value: cubit.tradeProduct ?? screenArgs.categoryName,
-                      onChanged: (newValue) => cubit.tradeProduct = newValue,
+                      value: cubit.editCategoryChanged
+                          ? cubit.tradeCategory
+                          : screenArgs.categoryName,
+                      onChanged: (newValue) => cubit.tradeCategory = newValue,
                       validator: (value) {
                         return value == null ? 'برجاء إدخال الفئه' : null;
                       },
-                      items: cubit.tradeProducts.map((e) {
+                      items: cubit.tradeCategories.map((e) {
                         return DropdownMenuItem(
                           value: e.name,
                           child: Center(
@@ -203,14 +203,15 @@ class _EditAdScreenState extends State<EditAdScreen> {
                     const DSize(height: 16, width: 0),
                     MyDropdownFormField(
                       onChanged: (wantedCSelected) {
-                        cubit.wantedTradeCategory = wantedCSelected;
-                        cubit.getSelectedProductsData(
+                        cubit.wantedTradeProduct = wantedCSelected;
+                        cubit.clearWantedTradeCategory();
+                        cubit.getSelectedCategoryData(
                           wantedCSelected!,
                           wanted: true,
                         );
                       },
-                      value: cubit.wantedTradeCategory,
                       hint: 'اختر القسم',
+                      value: cubit.wantedTradeProduct,
                       items: cubit.category.map((e) {
                         return DropdownMenuItem(
                           value: e.name,
@@ -226,10 +227,9 @@ class _EditAdScreenState extends State<EditAdScreen> {
                     const DSize(height: 16, width: 0),
                     MyDropdownFormField(
                       hint: 'اختر الفئه للمقايضه معه',
-                      value: cubit.wantedTradeProduct,
-                      onChanged: (newValue) =>
-                          cubit.wantedTradeProduct = newValue,
-                      items: cubit.wantedTradeProducts.map((e) {
+                      value: cubit.wantedTradeCategory,
+                      onChanged: (v) => cubit.wantedTradeCategory = v,
+                      items: cubit.wantedTradeCategories.map((e) {
                         return DropdownMenuItem(
                           value: e.name,
                           child: Center(

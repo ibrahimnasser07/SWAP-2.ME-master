@@ -1,3 +1,5 @@
 # Project exclude paths
 /.dart_tool/
 /build/
+/upload-keystore.jks
+/android/key.properties
